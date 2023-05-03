@@ -13,7 +13,7 @@ helpviewer_keywords:
 The general rule we follow is "use Visual Studio defaults".
 
 1. We use [Allman style](http://en.wikipedia.org/wiki/Indent_style#Allman_style) braces, where each brace begins on a new line. A single line statement block can go without braces. Another exception is that a `using` statement is permitted to be nested within another `using` statement by starting on the following line at the same indentation level, even if the nested `using` contains a controlled block.
-2. We use four spaces of indentation (no tab characters; your IDE can insert four spaces for you when you press TAB).
+2. We use four spaces of indentation (no tab characters; [your IDE can insert four spaces for you when you press TAB](https://learn.microsoft.com/en-us/visualstudio/ide/reference/options-text-editor-csharp-formatting?view=vs-2022)).
 3. We use `_camelCase` for internal and private fields and use `readonly` where possible. When used on static fields, `readonly` should come after `static` (e.g. `static readonly` not `readonly static`).  Public fields should be used sparingly and should use PascalCasing with no prefix when used.
 4. We avoid `this.` unless absolutely necessary.
 5. We always specify the visibility, even if it's the default (e.g.
@@ -25,7 +25,7 @@ The general rule we follow is "use Visual Studio defaults".
    blank lines between members of a type.
 8. Avoid spurious free spaces.
    For example avoid `if (someVar == 0)...`, where the dots mark the spurious free spaces.
-   Consider using the [Trailing Whitespace Visualizer](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.TrailingWhitespaceVisualizer) extension
+   Consider using the [Trailing Whitespace Visualizer](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.TrailingWhitespaceVisualizer) extension to handle this automatically.
 9. When working on code, keep the standards we set here for new code you are writing, but do not worry about areas that you are not working in.
 10. We only use `var` when the type is explicitly named on the right-hand side, typically due to either `new` or an explicit cast, e.g. `var stream = new FileStream(...)` not `var stream = OpenStandardInput()`.
     - Similarly, target-typed `new()` can only be used when the type is explicitly named on the left-hand side, in a variable definition statement or a field definition statement. e.g. `FileStream stream = new(...);`, but not `stream = new(...);` (where the type was specified on a previous line).
