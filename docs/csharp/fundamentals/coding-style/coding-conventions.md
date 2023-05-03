@@ -147,7 +147,7 @@ var currentPerformanceCounterCategory = new System.Diagnostics.
 
 Good layout uses formatting to emphasize the structure of your code and to make the code easier to read. Microsoft examples and samples conform to the following conventions:
 
-- Use the default Code Editor settings (smart indenting, four-character indents, tabs saved as spaces). For more information, see [Options, Text Editor, C#, Formatting](/visualstudio/ide/reference/options-text-editor-csharp-formatting).
+- Use the default Code Editor settings (smart indenting, four-character indents, tabs saved as spaces). For more information, see [Options, Text Editor, C#, Formatting](https://learn.microsoft.com/en-us/visualstudio/ide/reference/options-text-editor-csharp-formatting).
 
 - Write only one statement per line.
 - Write only one declaration per line.
