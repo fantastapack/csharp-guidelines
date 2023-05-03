@@ -130,7 +130,7 @@ public T SomeMethod<T>(int someNumber, bool isValid)
 }
 ```
 
-For more information on C# naming conventions, see [C# Coding Style](https://github.com/dotnet/runtime/blob/main/docs/coding-guidelines/coding-style.md).
+For more information on C# naming conventions, see [C# Coding Style](./coding-style.md).
 
 ### Additional naming conventions
 
