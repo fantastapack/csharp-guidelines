@@ -283,6 +283,7 @@ for (var i = 0; i < 10000; i++)
 }
 //Console.WriteLine("tra" + manyPhrases);
 ```
+
 ### Implicitly typed local variables
 
 - Use [implicit typing](../../programming-guide/classes-and-structs/implicitly-typed-local-variables.md) for local variables when the type of the variable is obvious from the right side of the assignment, or when the precise type is not important.
@@ -530,17 +531,21 @@ Call [static](../../language-reference/keywords/static.md) members by using the 
 
 - Use method syntax over query syntax
   Bad
+
   ```csharp
   var seattleCustomers = from customer in customers
                        where customer.City == "Seattle"
                        select customer.Name;
   ```
+
   Good
+
   ```csharp
   var seattleCustomers = customers
     .Where(customer => customer.City == "Seattle")
     .Select(customer => customer.Name);
   ```
+
 ## Security
 
 Follow the guidelines in [Secure Coding Guidelines](../../../standard/security/secure-coding-guidelines.md).
