@@ -136,7 +136,10 @@ For more information on C# naming conventions, see [C# Coding Style](https://git
 
 - Examples that don't include [using directives](../../language-reference/keywords/using-directive.md), use namespace qualifications. If you know that a namespace is imported by default in a project, you don't have to fully qualify the names from that namespace. Qualified names can be broken after a dot (.) if they are too long for a single line, as shown in the following example.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet1":::
+```csharp
+var currentPerformanceCounterCategory = new System.Diagnostics.
+    PerformanceCounterCategory();
+```
 
 - You don't have to change the names of objects that were created by using the Visual Studio designer tools to make them fit other guidelines.
 
@@ -152,7 +155,12 @@ Good layout uses formatting to emphasize the structure of your code and to make 
 - Add at least one blank line between method definitions and property definitions.
 - Use parentheses to make clauses in an expression apparent, as shown in the following code.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet2":::
+```csharp
+if ((val1 > val2) && (val1 > val3))
+{
+    // Take appropriate action.
+}
+```
   
 ## Place the using directives outside the namespace declaration
 
@@ -244,7 +252,10 @@ namespace CoolStuff.AwesomeFeature
 - End comment text with a period.
 - Insert one space between the comment delimiter (//) and the comment text, as shown in the following example.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet3":::
+```csharp
+// The following declaration creates a query. It does not run
+// the query.
+```
 
 - Don't create formatted blocks of asterisks around comments.
 - Ensure all public members have the necessary XML comments providing appropriate descriptions about their behavior.
@@ -257,25 +268,43 @@ The following sections describe practices that the C# team follows to prepare co
 
 - Use [string interpolation](../../language-reference/tokens/interpolated.md) to concatenate short strings, as shown in the following code.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet6":::
+```csharp
+string displayName = $"{nameList[n].LastName}, {nameList[n].FirstName}";
+```
 
 - To append strings in loops, especially when you're working with large amounts of text, use a <xref:System.Text.StringBuilder> object.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet7":::
-
+```csharp
+var phrase = "lalalalalalalalalalalalalalalalalalalalalalalalalalalalalala";
+var manyPhrases = new StringBuilder();
+for (var i = 0; i < 10000; i++)
+{
+    manyPhrases.Append(phrase);
+}
+//Console.WriteLine("tra" + manyPhrases);
+```
 ### Implicitly typed local variables
 
 - Use [implicit typing](../../programming-guide/classes-and-structs/implicitly-typed-local-variables.md) for local variables when the type of the variable is obvious from the right side of the assignment, or when the precise type is not important.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet8":::
+```csharp
+var var1 = "This is clearly a string.";
+var var2 = 27;
+```
 
 - Don't use [var](../../language-reference/statements/declarations.md#implicitly-typed-local-variables) when the type is not apparent from the right side of the assignment. Don't assume the type is clear from a method name. A variable type is considered clear if it's a `new` operator or an explicit cast.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet9":::
+```csharp
+int var3 = Convert.ToInt32(Console.ReadLine());
+int var4 = ExampleClass.ResultSoFar();
+```
 
 - Don't rely on the variable name to specify the type of the variable. It might not be correct. In the following example, the variable name `inputInt` is misleading. It's a string.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet10":::
+```csharp
+var inputInt = Console.ReadLine();
+Console.WriteLine(inputInt);
+```
 
 - Avoid the use of `var` in place of [dynamic](../../language-reference/builtin-types/reference-types.md). Use `dynamic` when you want run-time type inference. For more information, see [Using type dynamic (C# Programming Guide)](../../advanced-topics/interop/using-type-dynamic.md).
 
@@ -283,13 +312,30 @@ The following sections describe practices that the C# team follows to prepare co
 
   The following example uses implicit typing in a `for` statement.
 
-    :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet7":::
+    ```csharp
+    var phrase = "lalalalalalalalalalalalalalalalalalalalalalalalalalalalalala";
+    var manyPhrases = new StringBuilder();
+    for (var i = 0; i < 10000; i++)
+    {
+        manyPhrases.Append(phrase);
+    }
+    //Console.WriteLine("tra" + manyPhrases);
+    ```
 
 - Don't use implicit typing to determine the type of the loop variable in [`foreach`](../../language-reference/statements/iteration-statements.md#the-foreach-statement) loops. In most cases, the type of elements in the collection isn't immediately obvious. The collection's name shouldn't be solely relied upon for inferring the type of its elements.
 
   The following example uses explicit typing in a `foreach` statement.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet12":::
+  ```csharp
+  foreach (char ch in laugh)
+  {
+      if (ch == 'h')
+          Console.Write("H");
+      else
+          Console.Write(ch);
+  }
+  Console.WriteLine();
+  ```
 
   > [!NOTE]
   > Be careful not to accidentally change a type of an element of the iterable collection. For example, it is easy to switch from <xref:System.Linq.IQueryable?displayProperty=nameWithType> to <xref:System.Collections.IEnumerable?displayProperty=nameWithType> in a `foreach` statement, which changes the execution of a query.
@@ -302,59 +348,142 @@ In general, use `int` rather than unsigned types. The use of `int` is common thr
 
 Use the concise syntax when you initialize arrays on the declaration line. In the following example, note that you can't use `var` instead of `string[]`.
 
-:::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet13a":::
+```csharp
+string[] vowels1 = { "a", "e", "i", "o", "u" };
+```
 
 If you use explicit instantiation, you can use `var`.
 
-:::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet13b":::
+```csharp
+var vowels2 = new string[] { "a", "e", "i", "o", "u" };
+```
 
 ### Delegates
 
 Use [`Func<>` and `Action<>`](../../../standard/delegates-lambdas.md) instead of defining delegate types. In a class, define the delegate method.
 
-:::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet14a":::
+```csharp
+public static Action<string> ActionExample1 = x => Console.WriteLine($"x is: {x}");
+
+public static Action<string, string> ActionExample2 = (x, y) =>
+    Console.WriteLine($"x is: {x}, y is {y}");
+
+public static Func<string, int> FuncExample1 = x => Convert.ToInt32(x);
+
+public static Func<int, int, int> FuncExample2 = (x, y) => x + y;
+```
 
 Call the method using the signature defined by the `Func<>` or `Action<>` delegate.
 
-:::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet15a":::
+```csharp
+ActionExample1("string for x");
+
+ActionExample2("string for x", "string for y");
+
+Console.WriteLine($"The value is {FuncExample1("1")}");
+
+Console.WriteLine($"The sum is {FuncExample2(1, 2)}");
+```
 
 If you create instances of a delegate type, use the concise syntax. In a class, define the delegate type and a method that has a matching signature.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet14b":::
+  ```csharp
+  public delegate void Del(string message);
+
+  public static void DelMethod(string str)
+  {
+      Console.WriteLine("DelMethod argument: {0}", str);
+  }
+  ```
 
 Create an instance of the delegate type and call it. The following declaration shows the condensed syntax.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet15b":::
+  ```csharp
+  Del exampleDel2 = DelMethod;
+  exampleDel2("Hey");
+  ```
 
 The following declaration uses the full syntax.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet15c":::
+  ```csharp
+  Del exampleDel1 = new Del(DelMethod);
+  exampleDel1("Hey");
+  ```
 
 ### `try-catch` and `using` statements in exception handling
 
 - Use a [try-catch](../../language-reference/statements/exception-handling-statements.md#the-try-catch-statement) statement for most exception handling.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet16":::
+  ```csharp
+  static string GetValueFromArray(string[] array, int index)
+  {
+      try
+      {
+          return array[index];
+      }
+      catch (System.IndexOutOfRangeException ex)
+      {
+          Console.WriteLine("Index is out of range: {0}", index);
+          throw;
+      }
+  }
+  ```
 
 - Simplify your code by using the C# [using statement](../../language-reference/statements/using.md). If you have a [try-finally](../../language-reference/statements/exception-handling-statements.md#the-try-finally-statement) statement in which the only code in the `finally` block is a call to the <xref:System.IDisposable.Dispose%2A> method, use a `using` statement instead.
 
   In the following example, the `try-finally` statement only calls `Dispose` in the `finally` block.
 
-   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet17a":::
+  ```csharp
+  Font font1 = new Font("Arial", 10.0f);
+  try
+  {
+      byte charset = font1.GdiCharSet;
+  }
+  finally
+  {
+      if (font1 != null)
+      {
+          ((IDisposable)font1).Dispose();
+      }
+  }
+  ```
 
   You can do the same thing with a `using` statement.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet17b":::
+  ```csharp
+  using (Font font2 = new Font("Arial", 10.0f))
+  {
+      byte charset2 = font2.GdiCharSet;
+  }
+  ```
 
   Use the new [`using` syntax](../../language-reference/statements/using.md) that doesn't require braces:
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet17c":::
+  ```csharp
+  using Font font3 = new Font("Arial", 10.0f);
+  byte charset3 = font3.GdiCharSet;
+  ```
 
 ### `&&` and `||` operators
 
 To avoid exceptions and increase performance by skipping unnecessary comparisons, use [`&&`](../../language-reference/operators/boolean-logical-operators.md#conditional-logical-and-operator-) instead of [`&`](../../language-reference/operators/boolean-logical-operators.md#logical-and-operator-) and [`||`](../../language-reference/operators/boolean-logical-operators.md#conditional-logical-or-operator-) instead of [`|`](../../language-reference/operators/boolean-logical-operators.md#logical-or-operator-) when you perform comparisons, as shown in the following example.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet18":::
+  ```csharp
+  Console.Write("Enter a dividend: ");
+  int dividend = Convert.ToInt32(Console.ReadLine());
+
+  Console.Write("Enter a divisor: ");
+  int divisor = Convert.ToInt32(Console.ReadLine());
+
+  if ((divisor != 0) && (dividend / divisor > 0))
+  {
+      Console.WriteLine("Quotient: {0}", dividend / divisor);
+  }
+  else
+  {
+      Console.WriteLine("Attempted division by 0 ends up here.");
+  }
+  ```
 
 If the divisor is 0, the second clause in the `if` statement would cause a run-time error. But the && operator short-circuits when the first expression is false. That is, it doesn't evaluate the second expression. The & operator would evaluate both, resulting in a run-time error when `divisor` is 0.
 
@@ -362,7 +491,9 @@ If the divisor is 0, the second clause in the `if` statement would cause a run-t
 
 - Use one of the concise forms of object instantiation, as shown in the following declarations. The second example shows syntax that is available starting in C# 9.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet19":::
+  ```csharp
+  var instance1 = new ExampleClass();
+  ```
 
   ```csharp
   ExampleClass instance2 = new();
@@ -370,25 +501,26 @@ If the divisor is 0, the second clause in the `if` statement would cause a run-t
 
   The preceding declarations are equivalent to the following declaration.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet20":::
+  ```csharp
+  ExampleClass instance2 = new ExampleClass();
+  ```
 
 - Use object initializers to simplify object creation, as shown in the following example.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet21a":::
+  ```csharp
+  var instance3 = new ExampleClass { Name = "Desktop", ID = 37414,
+    Location = "Redmond", Age = 2.3 };
+  ```
 
   The following example sets the same properties as the preceding example but doesn't use initializers.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet21b":::
-
-### Event handling
-
-If you're defining an event handler that you don't need to remove later, use a lambda expression.
-
-:::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet22":::
-
-The lambda expression shortens the following traditional definition.
-
-:::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet23":::
+  ```csharp
+  var instance4 = new ExampleClass();
+  instance4.Name = "Desktop";
+  instance4.ID = 37414;
+  instance4.Location = "Redmond";
+  instance4.Age = 2.3;
+  ```
 
 ### Static members
 
@@ -396,32 +528,19 @@ Call [static](../../language-reference/keywords/static.md) members by using the 
 
 ### LINQ queries
 
-- Use meaningful names for query variables. The following example uses `seattleCustomers` for customers who are located in Seattle.
-
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet25":::
-
-- Use aliases to make sure that property names of anonymous types are correctly capitalized, using Pascal casing.
-
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet26":::
-
-- Rename properties when the property names in the result would be ambiguous. For example, if your query returns a customer name and a distributor ID, instead of leaving them as `Name` and `ID` in the result, rename them to clarify that `Name` is the name of a customer, and `ID` is the ID of a distributor.
-
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet27":::
-
-- Use implicit typing in the declaration of query variables and range variables.
-
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet25":::
-
-- Align query clauses under the [`from`](../../language-reference/keywords/from-clause.md) clause, as shown in the previous examples.
-
-- Use [`where`](../../language-reference/keywords/where-clause.md) clauses before other query clauses to ensure that later query clauses operate on the reduced, filtered set of data.
-
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet29":::
-
-- Use multiple `from` clauses instead of a [`join`](../../language-reference/keywords/join-clause.md) clause to access inner collections. For example, a collection of `Student` objects might each contain a collection of test scores. When the following query is executed, it returns each score that is over 90, along with the last name of the student who received the score.
-
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet30":::
-
+- Use method syntax over query syntax
+  Bad
+  ```csharp
+  var seattleCustomers = from customer in customers
+                       where customer.City == "Seattle"
+                       select customer.Name;
+  ```
+  Good
+  ```csharp
+  var seattleCustomers = customers
+    .Where(customer => customer.City == "Seattle")
+    .Select(customer => customer.Name);
+  ```
 ## Security
 
 Follow the guidelines in [Secure Coding Guidelines](../../../standard/security/secure-coding-guidelines.md).
@@ -429,5 +548,4 @@ Follow the guidelines in [Secure Coding Guidelines](../../../standard/security/s
 ## See also
 
 - [.NET runtime coding guidelines](https://github.com/dotnet/runtime/blob/main/docs/coding-guidelines/coding-style.md)
-- [Visual Basic Coding Conventions](../../../visual-basic/programming-guide/program-structure/coding-conventions.md)
 - [Secure Coding Guidelines](../../../standard/security/secure-coding-guidelines.md)
