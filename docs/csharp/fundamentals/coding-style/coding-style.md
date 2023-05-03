@@ -1,5 +1,14 @@
-C# Coding Style
-===============
+---
+title: "C# Coding Style Guidelines"
+description: A list of style guidelines for our C# projects
+ms.date: 05/03/2023
+helpviewer_keywords:
+  - "coding guidelines, C#"
+  - "Visual C#, coding conventions"
+  - "C# language, coding conventions"
+---
+
+# C# Coding Style Guidelines
 
 The general rule we follow is "use Visual Studio defaults".
 
@@ -36,7 +45,7 @@ The general rule we follow is "use Visual Studio defaults".
 
 An [EditorConfig](https://editorconfig.org "EditorConfig homepage") file (`.editorconfig`) has been provided at the root of the runtime repository, enabling C# auto-formatting conforming to the above guidelines.
 
-### Example File:
+## Example File:
 
 ``ObservableLinkedList`1.cs:``
 
