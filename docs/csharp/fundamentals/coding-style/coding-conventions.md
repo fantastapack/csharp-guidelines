@@ -84,18 +84,6 @@ public class ExampleEvents
 }
 ```
 
-When writing positional records, use pascal casing for parameters as they're the public properties of the record.
-
-```csharp
-public record PhysicalAddress(
-    string Street,
-    string City,
-    string StateOrProvince,
-    string ZipCode);
-```
-
-For more information on positional records, see [Positional syntax for property definition](../../language-reference/builtin-types/record.md#positional-syntax-for-property-definition).
-
 ### Camel case
 
 Use camel casing ("camelCasing") when naming `private` or `internal` fields, and prefix them with `_`.
@@ -109,18 +97,6 @@ public class DataService
 
 > [!TIP]
 > When editing C# code that follows these naming conventions in an IDE that supports statement completion, typing `_` will show all of the object-scoped members.
-
-When working with `static` fields that are `private` or `internal`, use the `s_` prefix and for thread static use `t_`.
-
-```csharp
-public class DataService
-{
-    private static IWorkerQueue s_workerQueue;
-
-    [ThreadStatic]
-    private static TimeSpan t_timeSpan;
-}
-```
 
 When writing method parameters, use camel casing.
 
@@ -152,7 +128,7 @@ Good layout uses formatting to emphasize the structure of your code and to make 
 - Write only one statement per line.
 - Write only one declaration per line.
 - If continuation lines are not indented automatically, indent them one tab stop (four spaces).
-- Add at least one blank line between method definitions and property definitions.
+- Add at least one blank line between method definitions.
 - Use parentheses to make clauses in an expression apparent, as shown in the following code.
 
 ```csharp
@@ -247,18 +223,16 @@ namespace CoolStuff.AwesomeFeature
 
 ## Commenting conventions
 
-- Place the comment on a separate line, not at the end of a line of code.
-- Begin comment text with an uppercase letter.
-- End comment text with a period.
-- Insert one space between the comment delimiter (//) and the comment text, as shown in the following example.
+- Place the comment on a separate line or at the end of a line of code.
+- If possible when you line break a comment, do it at the beginning of a sentence.
 
 ```csharp
-// The following declaration creates a query. It does not run
-// the query.
+// The following declaration creates a query. 
+// It does not run the query.
 ```
 
-- Don't create formatted blocks of asterisks around comments.
-- Ensure all public members have the necessary XML comments providing appropriate descriptions about their behavior.
+- Don't create formatted blocks of asterisks around comments unless that comment is especially important.
+- Ensure all public methods have the necessary XML comments providing appropriate descriptions about their behavior.
 
 ## Language guidelines
 
