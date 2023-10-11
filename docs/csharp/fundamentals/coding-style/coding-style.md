@@ -52,7 +52,7 @@ The general rule we follow is "use Visual Studio defaults".
     _logger.LogError(ex, $"Error trying to deserialize customer {csCode}.");
     ```
 
-   Worse - Do not put the exception message in the log message
+    Worse - The exception message does not need to be in the log message
 
     ```csharp
     _logger.LogError(ex, $"Error trying to deserialize customer {csCode}. Exception: {ex.Message}");
