@@ -38,18 +38,24 @@ The general rule we follow is "use Visual Studio defaults".
     - Using braces is always accepted, and required if any block of an `if`/`else if`/.../`else` compound statement uses braces or if a single statement body spans multiple lines.
     - Braces may be omitted only if the body of *every* block associated with an `if`/`else if`/.../`else` compound statement is placed on a single line.
 17. When considering to make all internal and private types static or sealed, follow visual studio recommendations.
-18. When logging, the second argument is a message. Pass in arguments to the message string as additional arguments instead of using string interpolation.
+18. When logging, the second argument is a message. Pass in arguments to the message string as additional arguments instead of using string interpolation. Furthermore, avoid passing an exception message as part of the log message because this is already being logged as part of the first argument.
 
     Good
 
     ```csharp
-    _logger.LogError(ex, "Error trying to deserialize customer ${csCode}. Exception: {ex}", csCode, ex.Message);
+    _logger.LogError(ex, "Error trying to deserialize customer {csCode}", csCode;
     ```
 
     Bad
 
     ```csharp
-    _logger.LogError(ex, $"Error trying to deserialize customer ${csCode}. Exception: {ex.Message}");
+    _logger.LogError(ex, $"Error trying to deserialize customer {csCode}.");
+    ```
+
+   Worse - Do not put the exception message in the log message
+
+    ```csharp
+    _logger.LogError(ex, $"Error trying to deserialize customer {csCode}. Exception: {ex.Message}");
     ```
 
 An [EditorConfig](https://editorconfig.org "EditorConfig homepage") file (`.editorconfig`) has been provided at the root of the runtime repository, enabling C# auto-formatting conforming to the above guidelines.
